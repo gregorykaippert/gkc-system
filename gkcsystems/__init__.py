@@ -32,7 +32,7 @@ inspector = sqlalchemy.inspect(engine)
 if not inspector.has_table("usuarios"):
     with app.app_context():
         database.drop_all()
-        database.create_table()
+        database.create_all()
         print('Base de dados criado!')
 else:
     print('Base de dados já existente!')
