@@ -4,11 +4,18 @@ from gkcsystems.secret_key import secret_key
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
+import os
 
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = secret_key
-app.config['SQLALCHEMY_DATABASE_URI'] = r'sqlite:///gkcsystemdb.db'
+
+if os.getenv("DATABASE_URL"): # verifica se existe variavel ambiente, no caso em producao
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL")
+else: # se tiver localhost, usa o banco local
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///gkcsystemdb.db'
+
+# app.config['SQLALCHEMY_DATABASE_URI'] = r'postgresql://postgres:GMorWkOZyYavMhehxOpvwrHxOYxTPXSq@centerbeam.proxy.rlwy.net:19962/railway'
 
 database = SQLAlchemy(app)
 
