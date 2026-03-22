@@ -31,7 +31,7 @@ engine = sqlalchemy.create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
 inspector = sqlalchemy.inspect(engine)
 if not inspector.has_table("usuarios"):
     with app.app_context():
-        database.drop_table()
+        database.drop_all()
         database.create_table()
         print('Base de dados criado!')
 else:
