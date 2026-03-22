@@ -1,0 +1,264 @@
+{% extends 'perfil.html' %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/editar_foto_button.css') }}">
+{% endblock %}
+
+{% block body %}
+<section style="background-color: #eee;">
+  <div class="container py-5">
+    <div class="row">
+      <div class="col">
+        <nav aria-label="breadcrumb" class="bg-body-tertiary rounded-3 p-3 mb-4">
+          <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="{{url_for('index')}}">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Edit Profile</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{current_user.nome}}</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="card mb-4">
+              <div class="card-body text-center">
+<!--                  <img src="{{ url_for('static', filename='foto_perfil/'+current_user.foto_perfil) }}" alt="{{current_user.nome}}"-->
+<!--                  class="rounded-circle img-fluid image" style="width: 150px;">-->
+                  <div class="container-foto">
+                    <img src="{{ url_for('static', filename='foto_perfil/'+current_user.foto_perfil) }}" alt="{{current_user.nome}}"
+                  class="rounded-circle img-fluid image" style="width: 150px;">
+                    <div class="middle">
+                        <div class="text">
+                            <form method="post" enctype="multipart/form-data">
+                                {% if 'default' in current_user.foto_perfil %}
+                                    {{ form.foto_perfil.label(for_="foto_perfil") }}
+                                    {{ form.foto_perfil(class_="form-control input_file_foto") }}
+                                    {{ form.botao_editar_foto(class="btn btn-secondary") }}
+                                {% else %}
+                                    {{ form.botao_excluir_foto(class="btn btn-secondary") }}
+                                {% endif %}
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <h5 class="my-3">{{current_user.nome}}</h5>
+                <p class="text-muted mb-1">{{current_user.email}}</p>
+                <p class="text-muted mb-4">{{current_user.endereco}}</p>
+                <div class="d-flex justify-content-center mb-2">
+                  <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary">Resume</button>
+                  <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-primary ms-1">Linkedin</button>
+                </div>
+              </div>
+            </div>
+        </div>
+
+      <div class="col-lg-8">
+        <div class="card mb-4">
+          <div class="card-body">
+            <form method="POST" enctype="multipart/form-data" novalidate>
+                {{ form.csrf_token }}
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">
+                        {% if form.username.errors %}
+                            <div class="text-danger">
+                                Nome completo
+                            </div>
+                        {% else %}
+                            Nome completo
+                        {% endif %}
+                    </p>
+                  </div>
+
+                  <div class="col-sm-9">
+                    <p class="text-muted mb-0">
+                        {% if form.username.errors %}
+                            {{form.username(class_="form-control is-invalid")}}
+                            {% for erros in form.username.errors %}
+                                <div class="text-danger">
+                                    {{ erros }}
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            {{form.username(class_="form-control")}}
+                        {% endif %}
+                    </p>
+                  </div>
+
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">
+                        {% if form.email.errors %}
+                            <div class="text-danger">
+                                Email
+                            </div>
+                        {% else %}
+                            Email
+                        {% endif %}
+                    </p>
+                  </div>
+                  <div class="col-sm-9">
+                    <p class="text-muted mb-0">
+                        {% if form.email.errors %}
+                            {{form.email(class_="form-control is-invalid")}}
+                            {% for erro in form.email.errors %}
+                                <div class="text-danger">
+                                    {{ erro }}
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            {{form.email(class_="form-control")}}
+                        {% endif %}
+                    </p>
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">
+                        {% if form.phone.errors %}
+                            <div class="text-danger">
+                                Telemóvel
+                            </div>
+                        {% else %}
+                            Telemóvel
+                        {% endif %}
+                    </p>
+                  </div>
+                  <div class="col-sm-9">
+                    <p class="text-muted mb-0">
+                        {% if form.phone.errors %}
+                            {{form.phone(class_="form-control is-invalid")}}
+                            {% for erro in form.phone.errors %}
+                                <div class="text-danger">
+                                    {{ erro }}
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            {{form.phone(class_="form-control")}}
+                        {% endif %}
+                    </p>
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">
+                        {% if form.endereco.errors %}
+                            <div class="text-danger">
+                                Endereço
+                            </div>
+                        {% else %}
+                            Endereço
+                        {% endif %}
+                    </p>
+                  </div>
+                  <div class="col-sm-9">
+                    <p class="text-muted mb-0">
+                        {% if form.endereco.errors %}
+                            {{form.endereco(class_="form-control is-invalid")}}
+                            {% for erro in form.endereco.errors %}
+                                <div class="text-danger">
+                                    {{ erro }}
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            {{form.endereco(class_="form-control")}}
+                        {% endif %}
+                    </p>
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Linkedin</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <p class="text-muted mb-0">
+                        {% if form.linkedin.errors %}
+                            {{form.linkedin(class_="form-control is-invalid")}}
+                            {% for erro in form.linkedin.errors %}
+                                <div class="text-danger">
+                                    {{ erro }}
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            {{form.linkedin(class_="form-control")}}
+                        {% endif %}
+                    </p>
+                  </div>
+                </div>
+
+                <!--<div class="row">
+                    <div class="col-sm-3">
+                        <p class="mb-0">
+                            {% if form.foto_perfil.errors %}
+                            <div class="text-danger">
+                                Foto de perfil
+                            </div>
+                            {% else %}
+                                Foto de perfil
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="col-sm-9">
+                        <p class="text-muted mb-0">
+                            {% if form.foto_perfil.errors %}
+                                {{form.foto_perfil(class_="form-control is-invalid")}}
+                                {% for erro in form.foto_perfil.errors %}
+                                     <span class="text-danger">
+                                        {{ erro }}
+                                    </span>
+                                {% endfor %}
+                            {% else %}
+                                {{form.foto_perfil(class_="form-control")}}
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>-->
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <p class="mb-0">
+                            {% if form.cv.errors %}
+                            <div class="text-danger">
+                                Currículo
+                            </div>
+                            {% else %}
+                                Currículo
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="col-sm-9">
+                        <p class="text-muted mb-0">
+                            {% if form.cv.errors %}
+                                {{form.cv(class_="form-control is-invalid")}}
+                                {% for erro in form.cv.errors %}
+                                     <span class="text-danger">
+                                        {{ erro }}
+                                    </span>
+                                {% endfor %}
+                            {% else %}
+                                {{form.cv(class_="form-control")}}
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        {{ form.botao_submit_editar_perfil(class_="btn btn-dark mt-3") }}
+                    </div>
+                </div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

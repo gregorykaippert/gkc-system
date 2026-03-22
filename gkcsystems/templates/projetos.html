@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+
+{% if 'criar' in request.path %}
+<!-- aqui lista os projetos -->
+    <h2 class="mt-3">Cadastrar Projetos</h2>
+    <hr>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card mb-4">
+              <div class="card-body">
+                <form method="POST" enctype="multipart/form-data" novalidate>
+                    {{ form.csrf_token }}
+                    <div class="row">
+                      <div class="col-sm-3">
+                        {% if form.titulo.errors %}
+                            <div class="text-danger">
+                                Título do projeto
+                            </div>
+                        {% else %}
+                            Título do projeto
+                        {% endif %}
+                      </div>
+                      <div class="col-sm-9">
+                          {{ form.titulo(class_="form-control", placeholder="Título") }}
+                      </div>
+                    </div>
+
+                    <div class="row mt-3">
+                      <div class="col-sm-3">
+                        {% if form.ferramentas_usadas.errors %}
+                            <div class="text-danger">
+                                Ferramentas usadas no projeto (Separar por (;))
+                            </div>
+                        {% else %}
+                            Ferramentas usadas no projeto (Separar por ;)
+                        {% endif %}
+                      </div>
+                      <div class="col-sm-9">
+                          {{ form.ferramentas_usadas(class_="form-control", placeholder="Ex: Python; php; mysql; jquery; bootstrap; ...") }}
+                      </div>
+                    </div>
+
+                    <div class="row mt-3">
+                      <div class="col-sm-3">
+                        {% if form.upload_video.errors %}
+                            <div class="text-danger">
+                                Upload do vídeo
+                            </div>
+                        {% else %}
+                            Upload do vídeo
+                        {% endif %}
+                      </div>
+                      <div class="col-sm-9">
+                          {{ form.upload_video(class_="form-control") }}
+                      </div>
+                    </div>
+
+                    <div class="row mt-3">
+                      <div class="col-sm-3">
+                        {% if form.descricao.errors %}
+                            <div class="text-danger">
+                                Descrição do projeto
+                            </div>
+                        {% else %}
+                            Descrição do projeto
+                        {% endif %}
+                      </div>
+                      <div class="col-sm-9">
+                          {{ form.descricao(class_="form-control", placeholder="Descrição") }}
+                      </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col">
+                            {{ form.botao_submit_projetos(class_="btn btn-dark") }}
+                        </div>
+                    </div>
+                </form>
+              </div>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <!-- aqui lista os projetos -->
+    <h2 class="mt-3">Listar Projetos</h2>
+    <hr>
+    {% for projeto in projetos %}
+
+        <div style="background-color:gray">
+            {{ projeto.titulo }} <br>
+            {{ projeto.descricao }} <br>
+            {% for ferramenta in projeto.ferramentas_usadas.split(';') %}
+
+                <button class="btn btn-primary">{{ ferramenta }}</button>
+
+            {% endfor %}
+            <br><br>
+        </div>
+
+    {% endfor %}
+
+{% endif %}
+
+{% endblock %}

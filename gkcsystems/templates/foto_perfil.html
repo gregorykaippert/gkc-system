@@ -1,0 +1,22 @@
+<div class="col-lg-4">
+    <div class="card mb-4">
+      <div class="card-body text-center">
+        <img src="{{ url_for('static', filename='foto_perfil/'+dados.foto_perfil) }}" alt="{{dados.nome}}"
+          class="rounded-circle img-fluid" style="width: 150px;">
+        <h5 class="my-3">{{dados.nome}}</h5>
+        <p class="text-muted mb-1">{{dados.email}}</p>
+        <p class="text-muted mb-4">{{dados.endereco}}</p>
+        <div class="d-flex justify-content-center mb-2">
+          <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary fa-shake">Resume</button>
+            {% if 'http' in dados.linkedin %}
+                <a href="{{ dados.linkedin }}" target="_blank">
+            {% else %}
+                <a href="#">
+            {% endif %}
+                <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-primary ms-1">Linkedin</button>
+            </a>
+
+        </div>
+      </div>
+    </div>
+</div>
