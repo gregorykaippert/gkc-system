@@ -6,106 +6,107 @@
 {% endblock %}
 
 {% block body %}
-<section style="background-color: #eee;">
-  <div class="container py-5">
-    <div class="row">
-      <div class="col">
-        <nav aria-label="breadcrumb" class="bg-body-tertiary rounded-3 p-3 mb-4">
-          <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="{{url_for('index')}}">Home</a></li>
-            <li class="breadcrumb-item"><a href="#">User Profile</a></li>
-            <li class="breadcrumb-item active" aria-current="page">{{dados.nome}}</li>
-          </ol>
-        </nav>
-      </div>
-    </div>
+    {% if dados != None %}
+        <section style="background-color: #eee;">
+          <div class="container py-5">
+            <div class="row">
+              <div class="col">
+                <nav aria-label="breadcrumb" class="bg-body-tertiary rounded-3 p-3 mb-4">
+                  <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="{{url_for('index')}}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">User Profile</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{dados.nome}}</li>
+                  </ol>
+                </nav>
+              </div>
+            </div>
 
-    <div class="row">
-      {% block foto_perfil %}
-        <div class="col-lg-4">
-            <div class="card mb-4">
-              <div class="card-body text-center">
-                <img src="{{ url_for('static', filename='foto_perfil/'+dados.foto_perfil) }}" alt="{{dados.nome}}"
-                  class="rounded-circle img-fluid" style="width: 150px; border:1px solid black">
-                <h5 class="my-3">{{dados.nome}}</h5>
-                <p class="text-muted mb-1">{{dados.email}}</p>
-                <p class="text-muted mb-4">{{dados.endereco}}</p>
-                <div class="d-flex justify-content-center mb-2">
-                    {% if dados.cv != '' and dados.cv != 'Não informado' %}
-                        <a href="{{ url_for('static', filename='curriculo/'+dados.cv) }}" target="_blank">
-                    {% else %}
-                        <a href="#">
-                    {% endif %}
-                        <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary fa-shake">Resume</button>
-                    </a>
+            <div class="row">
+              {% block foto_perfil %}
+                <div class="col-lg-4">
+                    <div class="card mb-4">
+                      <div class="card-body text-center">
+                        <img src="{{ url_for('static', filename='foto_perfil/'+dados.foto_perfil) }}" alt="{{dados.nome}}"
+                          class="rounded-circle img-fluid" style="width: 150px; border:1px solid black">
+                        <h5 class="my-3">{{dados.nome}}</h5>
+                        <p class="text-muted mb-1">{{dados.email}}</p>
+                        <p class="text-muted mb-4">{{dados.endereco}}</p>
+                        <div class="d-flex justify-content-center mb-2">
+                            {% if dados.cv != '' and dados.cv != 'Não informado' %}
+                                <a href="{{ url_for('static', filename='curriculo/'+dados.cv) }}" target="_blank">
+                            {% else %}
+                                <a href="#">
+                            {% endif %}
+                                <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary fa-shake">Resume</button>
+                            </a>
 
-                    {% if 'http' in dados.linkedin %}
-                        <a href="{{ dados.linkedin }}" target="_blank">
-                    {% else %}
-                        <a href="#">
-                    {% endif %}
-                        <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-primary ms-1">Linkedin</button>
-                    </a>
+                            {% if 'http' in dados.linkedin %}
+                                <a href="{{ dados.linkedin }}" target="_blank">
+                            {% else %}
+                                <a href="#">
+                            {% endif %}
+                                <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-primary ms-1">Linkedin</button>
+                            </a>
 
+                        </div>
+                      </div>
+                    </div>
                 </div>
-              </div>
-            </div>
-        </div>
-      {% endblock %}
+              {% endblock %}
 
-      <div class="col-lg-8">
-        <div class="card mb-4">
-          <div class="card-body">
-            <div class="row">
-              <div class="col-sm-3">
-                <p class="mb-0">Nome completo</p>
-              </div>
-              <div class="col-sm-8">
-                <p class="text-muted mb-0">{{dados.nome}}</p>
-              </div>
-                {% if current_user.is_authenticated %}
-                  <div class="col-sm-1">
-                    <p class="text-muted mb-0">
-                        <a href="{{ url_for('perfil_editar') }}">
-                            <i class="fa-solid fa-user-pen edit"></i>
-                        </a>
-                    </p>
+              <div class="col-lg-8">
+                <div class="card mb-4">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <p class="mb-0">Nome completo</p>
+                      </div>
+                      <div class="col-sm-8">
+                        <p class="text-muted mb-0">{{dados.nome}}</p>
+                      </div>
+                        {% if current_user.is_authenticated %}
+                          <div class="col-sm-1">
+                            <p class="text-muted mb-0">
+                                <a href="{{ url_for('perfil_editar') }}">
+                                    <i class="fa-solid fa-user-pen edit"></i>
+                                </a>
+                            </p>
+                          </div>
+                        {% endif %}
+                    </div>
+                    <hr>
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <p class="mb-0">Email</p>
+                      </div>
+                      <div class="col-sm-9">
+                        <p class="text-muted mb-0">{{dados.email}}</p>
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <p class="mb-0">Mobile</p>
+                      </div>
+                      <div class="col-sm-9">
+                        <p class="text-muted mb-0">{{dados.phone}}</p>
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <p class="mb-0">Address</p>
+                      </div>
+                      <div class="col-sm-9">
+                        <p class="text-muted mb-0">{{dados.endereco}}</p>
+                      </div>
+                    </div>
                   </div>
-                {% endif %}
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-sm-3">
-                <p class="mb-0">Email</p>
-              </div>
-              <div class="col-sm-9">
-                <p class="text-muted mb-0">{{dados.email}}</p>
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-sm-3">
-                <p class="mb-0">Mobile</p>
-              </div>
-              <div class="col-sm-9">
-                <p class="text-muted mb-0">{{dados.phone}}</p>
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-sm-3">
-                <p class="mb-0">Address</p>
-              </div>
-              <div class="col-sm-9">
-                <p class="text-muted mb-0">{{dados.endereco}}</p>
+                </div>
+
               </div>
             </div>
           </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</section>
-
+        </section>
+    {% endif %}
 {% endblock %}

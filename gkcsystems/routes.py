@@ -77,7 +77,7 @@ def login():
         database.session.commit()
 
         flash(f'Seja bem vindo {criar_conta_form.username.data}, sua conta foi criada com sucesso!', 'alert-success')
-        return redirect(url_for('home'))
+        return redirect(url_for('index'))
 
     return render_template('login.html', login_form=login_form, criar_conta_form=criar_conta_form, ano=ano)
 
@@ -98,6 +98,8 @@ def sair():
 def perfil():
     ano = datetime.today().year
     dados = Usuarios.query.first()
+    if dados == None:
+        flash('Usuário ainda não cadastrou seu perfil!', 'alert-warning')
     return render_template('perfil.html', ano=ano, dados=dados)
 
 def salvar_arquivo(arquivo):
