@@ -14,7 +14,7 @@ app.config['SECRET_KEY'] = secret_key
 if os.getenv("DATABASE_URL"): # verifica se existe variavel ambiente, no caso em producao
     app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL")
 else: # se tiver localhost, usa o banco local
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///gkcsystemdb.db'
+    app.config['SQLALCHEMY_DATABASE_URI'] = r'sqlite:///C:\Users\Greg\PycharmProjects\projeto_site\instance\gkcsystemdb.db'
 
 # app.config['SQLALCHEMY_DATABASE_URI'] = r'postgresql://postgres:GMorWkOZyYavMhehxOpvwrHxOYxTPXSq@centerbeam.proxy.rlwy.net:19962/railway'
 
@@ -29,6 +29,7 @@ login_manager.login_message_category = 'alert-info'
 from gkcsystems import models
 engine = sqlalchemy.create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
 inspector = sqlalchemy.inspect(engine)
+# print('teste conexao', inspector.has_table(table_name='usuarios'))
 if not inspector.has_table("usuarios"):
     with app.app_context():
         database.drop_all()
