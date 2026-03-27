@@ -31,6 +31,7 @@ class LoginForm(FlaskForm):
 class EditarPerfilForm(FlaskForm):
     username = StringField('Nome', validators=[DataRequired(message='Campo nome de usuário obrigatório o preenchimento.')])
     email = StringField('Email', validators=[DataRequired(message='Campo email obrigatório o preenchimento.'), Email('Campo email inválido.')])
+    senha = PasswordField('Senha')
     phone = StringField('Telemóvel', validators=[DataRequired(message='Campo telemóvel obrigatório o preenchimento.')])
     endereco = StringField('Endereço', validators=[DataRequired(message='Campo endereço obrigatório o preenchimento.')])
     linkedin = StringField('Linkedin')

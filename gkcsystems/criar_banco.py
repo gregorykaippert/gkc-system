@@ -4,9 +4,9 @@ from gkcsystems.models import Usuarios, Projetos
 
 
 # o codigo abaixo é apenas para criar o banco de dados, pode deixar comentado
-with app.app_context():
-    database.drop_all()
-    database.create_all()
+# with app.app_context():
+#     database.drop_all()
+#     database.create_all()
 
 # with app.app_context():
 #     usuario = Usuarios(nome='Greg', email='greg_kaippert@hotmail.com', senha='123456')

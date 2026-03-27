@@ -33,12 +33,6 @@ def contato():
     ano = datetime.today().year
     return render_template('contact.html', ano=ano)
 
-@app.route('/usuarios')
-@login_required
-def conta():
-    ano = datetime.today().year
-    return render_template(template_name_or_list='conta.html', ano=ano)
-
 @app.route('/youtube')
 def youtube():
     ano = datetime.today().year
@@ -152,6 +146,13 @@ def perfil_editar():
 
         if form.cv.data:
             current_user.cv = salvar_arquivo(form.cv.data)
+
+        if form.senha.data:
+            if len(form.senha.data) >= 6 and len(form.senha.data) <= 20:
+                current_user.senha = bcrypt.generate_password_hash(form.senha.data)
+            else:
+                flash('Senha no padrão incorreto, não foi possível alterá-la!', 'alert-warning')
+
 
         database.session.commit()
         flash('{}, seu perfil foi atualizado com sucesso!'. format(current_user.nome), 'alert-success')
